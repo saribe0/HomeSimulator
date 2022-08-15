@@ -5,6 +5,6 @@
 class Room {
 
 public:
-    std::string name;
+    const std::string name;
     Room(const std::string& name): name(name) {}
 };

@@ -6,7 +6,7 @@ std::string test_category = "[home]";
 
 TEST_CASE( "Test the home can add and retrieve devices", test_category ) {
 
-    auto home = Home();
+    auto home = Home("home");
     home.addDevice(std::make_unique<Device>("device1"));
     home.addDevice(std::make_unique<Device>("device2"));
     auto devices = home.getDevices();
@@ -16,7 +16,7 @@ TEST_CASE( "Test the home can add and retrieve devices", test_category ) {
 
 TEST_CASE( "Test the home can add and retrieve rooms", test_category ) {
 
-    auto home = Home();
+    auto home = Home("home");
     home.addRoom("test_room");
     auto rooms = home.getRooms();
 
@@ -26,9 +26,9 @@ TEST_CASE( "Test the home can add and retrieve rooms", test_category ) {
 
 TEST_CASE( "Test the home can add and remove rooms", test_category ) {
 
-    auto home = Home();
+    auto home = Home("home");
     home.addRoom("test_room1");
-    auto newRoom = home.addRoom("test_room2");
+    auto& newRoom = home.addRoom("test_room2");
     auto rooms = home.getRooms();
     REQUIRE(rooms.size() == 2);
 
@@ -41,9 +41,9 @@ TEST_CASE( "Test the home can add and remove rooms", test_category ) {
 
 TEST_CASE( "Test the home can add and remove devices", test_category ) {
 
-    auto home = Home();
+    auto home = Home("home");
     home.addDevice(std::make_unique<Device>("device1"));
-    auto newDevice = home.addDevice(std::make_unique<Device>("device2"));
+    auto& newDevice = home.addDevice(std::make_unique<Device>("device2"));
     auto devices = home.getDevices();
 
     REQUIRE(devices.size() == 2);

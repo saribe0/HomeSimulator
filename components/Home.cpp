@@ -1,4 +1,3 @@
-#include <algorithm>
 
 #include "Home.hpp"
 #include "utils/utilities.hpp"

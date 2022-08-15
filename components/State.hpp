@@ -1,43 +1,30 @@
+#pragma once
+
 #include <string>
-#include <functional>
 
-class GenericState {
-public:
-    std::string name;
-    virtual ~GenericState() = default;
-    virtual void visitValue(std::function<void (void*)> func) = 0;
+using StateType = std::variant<int, double, float, bool, std::string>;
+
+class State {
 protected:
-    GenericState(std::string name): name(name) {}
+    StateType value;
+
+public:
+    const std::string name;
+
+    template<typename T>
+    State(const std::string& name, const T& value): value(value), name(name) {}
+    
+    const StateType getValue() { return value; }
 };
 
-template<typename T>
-class State: public GenericState {
-protected:
-    T value;
+class SetableState: public State {
 
 public:
-    State(const std::string& name, const T& value): GenericState(name), value(value) {}
-    const std::string getName() {return name; }
-    const T getValue() { return value; }
+    template<typename T>
+    SetableState(const std::string& name, const T& value): State(name, value) {}
 
-    // Calls the provided function with a reference to a copy of the value so the caller can read but not write it
-    void visitValue(std::function<void (void*)> func) override {
-        T valueCopy = value;
-        func(&valueCopy);
-    }
-};
-
-template<typename T>
-class SetableState: public State<T> {
-
-public:
-    SetableState(const std::string& name, const T& value): State<T>(name, value) {}
+    template<typename T>
     void setValue(const T& value) {
         this->value = value;
-    }
-
-    // Calls the provided function with the reference of value so it can be modified by the caller
-    void visitValue(std::function<void (void*)> func) override {
-        func(&this->value);
     }
 };

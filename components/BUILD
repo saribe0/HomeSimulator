@@ -4,6 +4,7 @@ cc_library(
     name = "components",
     srcs = [
         "Home.cpp",
+        "Device.cpp",
     ],
     hdrs = [
         "Home.hpp",

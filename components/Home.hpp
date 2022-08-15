@@ -16,6 +16,10 @@ class Home {
     std::unordered_map<std::string, decltype(rooms.begin())> roomNameMap;
 
 public:
+    const std::string name;
+
+    Home(const std::string name): name(name) {};
+
     const std::list<std::reference_wrapper<Device>> getDevices();
     const std::list<std::reference_wrapper<Room>> getRooms();
 
