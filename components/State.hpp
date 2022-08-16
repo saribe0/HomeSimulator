@@ -12,7 +12,7 @@ public:
     const std::string name;
 
     template<typename T>
-    State(const std::string& name, const T& value): value(value), name(name) {}
+    constexpr State(const std::string& name, const T& value): value(value), name(name) {}
     
     const StateType getValue() { return value; }
 };
@@ -21,7 +21,7 @@ class SetableState: public State {
 
 public:
     template<typename T>
-    SetableState(const std::string& name, const T& value): State(name, value) {}
+    constexpr SetableState(const std::string& name, const T& value): State(name, value) {}
 
     template<typename T>
     void setValue(const T& value) {
